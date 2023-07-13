@@ -2,42 +2,35 @@
 
 /**
  * main - Entry point
- * @prompt: prompt to be displayed continuously on a loop waiting for
- * 	    user's input
- * @command: the input gotten from the user
- * @cmdread: the input read and stored in buffer
- *
+ * @ac: function parameter 1
+ * @av: function parameter 2
  * Return: 0
  */
 
 
 int main(int ac, char *av[])
 {
-	char *prompt = "(myShell)$ ";  /*prompt to be displayed*/
-	char *command = NULL;  /*the user's input*/
+	char *prompt = "(myShell)$ ";
+	char *command = NULL;
 	size_t bufsize = BUFF_SIZE;
-	ssize_t cmdread; /*command read from user's input*/
+	ssize_t cmdread;
 	pid_t pid;
 	int status;
-
-	/*declaring void variables since no arguments are going to be passed*/
 	(void)ac;
 
 	while (1)
 	{
 		printf("%s", prompt);
-		cmdread = getline(&command, &bufsize, stdin);
-		/*Handling EOF*/
+		cmdread = getline(&command, &bufsize, stdin)
+
 		if (cmdread == -1)
 		{
-			printf(".....Exiting myShell.....\n");
+			printf("\n");
 			return (-1);
 		}
-		/*display the user's input*/
-		printf("%s\n", command);
+		printf("%s", command);
 
 		av[0] = command;
-
 		pid = fork();
 		if (pid < 0)
 		{
@@ -46,14 +39,12 @@ int main(int ac, char *av[])
 		}
 		else if (pid == 0)
 		{
-			/*child process, execute command*/
 			execve(av[0], av, NULL);
-			perror("execve");  /*returns only if an error occurs*/
+			perror("execve");
 			exit(EXIT_FAILURE);
 		}
 		else
 		{
-			/*parent process*/
 			waitpid(pid, &status, 0);
 		}
 
