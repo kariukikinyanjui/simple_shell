@@ -14,7 +14,8 @@
 int main(int ac, char *av[])
 {
 	char *prompt = "(myShell)$ ";  /*prompt to be displayed*/
-	char *command[BUFF_SIZE];  /*the user's input*/
+	char *command = NULL;  /*the user's input*/
+	size_t bufsize = BUFF_SIZE;
 	ssize_t cmdread; /*command read from user's input*/
 	pid_t pid;
 	int status;
@@ -56,8 +57,6 @@ int main(int ac, char *av[])
 			waitpid(pid, &status, 0);
 		}
 
-		/*free the allocated memory*/
-		free(command);
 	}
 	return (0);
 }
