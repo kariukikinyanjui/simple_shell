@@ -21,7 +21,7 @@ int main(int ac, char *av[])
 	while (1)
 	{
 		printf("%s", prompt);
-		cmdread = getline(&command, &bufsize, stdin)
+		cmdread = getline(&command, &bufsize, stdin);
 
 		if (cmdread == -1)
 		{
