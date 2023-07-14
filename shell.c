@@ -2,8 +2,8 @@
 
 /**
  * main - Entry point
- * @ac: function parameter 1
- * @av: function parameter 2
+ * @ac: argument count
+ * @av: argument vector
  * Return: 0
  */
 
