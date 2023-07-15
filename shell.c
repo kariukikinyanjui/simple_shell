@@ -12,6 +12,7 @@ int main(int ac, char *av[])
 {
 	char *prompt = "(myShell)$ ";
 	char *command = NULL;
+	char *argv[MAX_ARGS];
 	size_t bufsize = BUFF_SIZE;
 	ssize_t cmdread;
 	pid_t pid;
@@ -29,8 +30,9 @@ int main(int ac, char *av[])
 			return (-1);
 		}
 		printf("%s", command);
+		parse_func(command, argv);
 
-		av[0] = command;
+		av[0] = argv[0];
 		pid = fork();
 		if (pid < 0)
 		{
