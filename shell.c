@@ -12,10 +12,8 @@ int main(int ac, char *av[])
 {
 	char *prompt = "(myShell)$ ";
 	char *command = NULL;
-	char *token;
 	size_t bufsize = BUFF_SIZE;
 	ssize_t cmdread;
-	int arg_count;
 	pid_t pid;
 	int status;
 	(void)ac;
@@ -30,16 +28,9 @@ int main(int ac, char *av[])
 			printf("\n");
 			return (-1);
 		}
-		command[strcspn(command, "\n")] = '\0';
-		token = strtok(command, " ");
-		arg_count = 0;
+		printf("%s", command);
 
-		while (token != NULL)
-		{
-			av[arg_count] = token;
-			token = strtok(NULL, " ");
-			arg_count++;
-		}
+		av[0] = command;
 		pid = fork();
 		if (pid < 0)
 		{
@@ -58,6 +49,5 @@ int main(int ac, char *av[])
 		}
 
 	}
-	free(command);
 	return (0);
 }
