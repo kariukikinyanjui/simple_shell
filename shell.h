@@ -2,11 +2,13 @@
 #define SHELL_H
 #define BUFF_SIZE 1024
 #define MAX_ARGS 20
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+
 void parse_func(char *command, char *argv[]);
 #endif

@@ -49,7 +49,6 @@ int main(int ac, char *av[])
 		{
 			waitpid(pid, &status, 0);
 		}
-
 	}
 	return (0);
 }
