@@ -30,6 +30,11 @@ int main(int ac, char *av[])
 
 		parse_func(command, argv);
 
+		if (strcmp(argv[0], "exit") == 0)
+		{
+			exit_func();
+		}
+
 		av[0] = argv[0];
 		file_path(command);
 	}
