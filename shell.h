@@ -11,4 +11,7 @@
 #include <sys/wait.h>
 
 void parse_func(char *command, char *argv[]);
+extern char **environ;
+void file_path(char *command);
+
 #endif

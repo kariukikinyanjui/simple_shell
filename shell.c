@@ -15,8 +15,6 @@ int main(int ac, char *av[])
 	char *argv[MAX_ARGS];
 	size_t bufsize = BUFF_SIZE;
 	ssize_t cmdread;
-	pid_t pid;
-	int status;
 	(void)ac;
 
 	while (1)
@@ -27,28 +25,15 @@ int main(int ac, char *av[])
 		if (cmdread == -1)
 		{
 			printf("\n");
-			return (-1);
+			break;
 		}
-		printf("%s", command);
+
 		parse_func(command, argv);
 
 		av[0] = argv[0];
-		pid = fork();
-		if (pid < 0)
-		{
-			perror("fork");
-			exit(EXIT_FAILURE);
-		}
-		else if (pid == 0)
-		{
-			execve(av[0], av, NULL);
-			perror("execve");
-			exit(EXIT_FAILURE);
-		}
-		else
-		{
-			waitpid(pid, &status, 0);
-		}
+		file_path(command);
 	}
+
+	free(command);
 	return (0);
 }
