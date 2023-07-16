@@ -16,6 +16,7 @@ int main(int ac, char *av[])
 	size_t bufsize = BUFF_SIZE;
 	ssize_t cmdread;
 	(void)ac;
+	(void)av;
 
 	while (1)
 	{
@@ -40,8 +41,7 @@ int main(int ac, char *av[])
 		}
 		else
 		{
-			av[0] = argv[0];
-			file_path(command);
+			file_path(argv);
 		}
 	}
 
