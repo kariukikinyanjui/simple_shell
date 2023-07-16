@@ -13,7 +13,7 @@
 void parse_func(char *command, char *argv[]);
 extern char **environ;
 void file_path(char *argv[]);
-void exit_func();
-void env_func();
+void exit_func(char *argv[]);
+void env_func(char *argv[]);
 
 #endif
