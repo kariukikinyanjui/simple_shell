@@ -8,19 +8,21 @@
 
 void file_path(char *command)
 {
-	char *path;
+	char *path, *path_copy;
 	char *dir;
 	char full_path[BUFF_SIZE];
 	int status;
 
 	path = getenv("PATH");
+	path_copy = strdup(path);
 
 	if (path == NULL)
 	{
 		printf("PATH environment variable not found\n");
+		return;
 	}
 
-	dir = strtok(path, ":");
+	dir = strtok(path_copy, ":");
 	while (dir != NULL)
 	{
 		strncpy(full_path, dir, BUFF_SIZE - 1);
@@ -40,6 +42,7 @@ void file_path(char *command)
 			else if (pid == 0)
 			{
 				char *argv[2];
+
 				argv[0] = full_path;
 				argv[1] = NULL;
 
@@ -54,6 +57,7 @@ void file_path(char *command)
 				{
 					return;
 				}
+				free(path_copy);
 			}
 		}
 
