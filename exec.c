@@ -1,5 +1,11 @@
 #include "shell.h"
 
+/**
+ * file_path - A function that gets the PATH environment variable of a command
+ * and executes the command
+ * @command: A pointer to the command from user's input
+ */
+
 void file_path(char *command)
 {
 	char *path;
@@ -33,12 +39,16 @@ void file_path(char *command)
 			}
 			else if (pid == 0)
 			{
-				char *argv[] = {full_path, NULL};
+				char *argv[2];
+				argv[0] = full_path;
+				argv[1] = NULL;
+
 				execve(full_path, argv, environ);
 				perror("execve");
 				exit(EXIT_FAILURE);
 			}
-			else {
+			else
+			{
 				waitpid(pid, &status, 0);
 				if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
 				{
