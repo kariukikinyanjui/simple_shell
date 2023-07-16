@@ -53,11 +53,11 @@ void file_path(char *command)
 			else
 			{
 				waitpid(pid, &status, 0);
+				free(path_copy);
 				if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
 				{
 					return;
 				}
-				free(path_copy);
 			}
 		}
 
