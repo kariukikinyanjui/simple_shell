@@ -34,9 +34,15 @@ int main(int ac, char *av[])
 		{
 			exit_func();
 		}
-
-		av[0] = argv[0];
-		file_path(command);
+		else if (strcmp(argv[0], "env") == 0)
+		{
+			env_func();
+		}
+		else
+		{
+			av[0] = argv[0];
+			file_path(command);
+		}
 	}
 
 	free(command);
