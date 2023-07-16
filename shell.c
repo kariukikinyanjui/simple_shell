@@ -33,6 +33,7 @@ int main(int ac, char *av[])
 
 		if (strcmp(argv[0], "exit") == 0)
 		{
+			free(command);
 			exit_func(argv);
 		}
 		else if (strcmp(argv[0], "env") == 0)
