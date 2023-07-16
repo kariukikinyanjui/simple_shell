@@ -39,7 +39,9 @@ void file_path(char *command)
 			}
 			else if (pid == 0)
 			{
-				char *argv[] = {full_path, NULL};
+				char *argv[2];
+				argv[0] = full_path;
+				argv[1] = NULL;
 
 				execve(full_path, argv, environ);
 				perror("execve");
