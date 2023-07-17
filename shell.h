@@ -15,5 +15,6 @@ extern char **environ;
 void file_path(char *argv[]);
 void exit_func(char *argv[]);
 void env_func(char *argv[]);
+char *my_strtok(char *str, const char *delim);
 
 #endif
