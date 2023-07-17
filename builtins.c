@@ -1,17 +1,17 @@
 #include "shell.h"
 
 /**
- * exit_func - implementation of the exit built-in command
- * @argv: pointer to a string
- * Return: exit status
+ * exit_func - a function that implements the exit built-in command
+ * @status: exit status
  */
-void exit_func(char *argv[])
+void exit_func(int status)
 {
-	(void)argv;
-	exit(EXIT_SUCCESS);
+	exit(status);
 }
 /**
- * env_func - implementation the env built-in command
+ * env_func - a function that implements the env built-in command
+ * @argv: array of character pointers representing the arguments passed
+ * to the env command
  */
 void env_func(char *argv[])
 {
