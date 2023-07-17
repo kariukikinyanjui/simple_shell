@@ -9,14 +9,14 @@
  */
 void parse_func(char *command, char *argv[])
 {
-	char *token = strtok(command, " \t\n");
+	char *token = my_strtok(command, " \t\n");
 	int argc = 0;
 
 	while (token != NULL && argc < MAX_ARGS - 1)
 	{
 		argv[argc] = token;
 		argc++;
-		token = strtok(NULL, " \t\n");
+		token = my_strtok(NULL, " \t\n");
 	}
 	argv[argc] = NULL;
 }
