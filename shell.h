@@ -13,7 +13,7 @@
 void parse_func(char *command, char *argv[]);
 extern char **environ;
 void file_path(char *argv[]);
-void exit_func(char *argv[]);
+void exit_func(int status);
 void env_func(char *argv[]);
 char *my_strtok(char *str, const char *delim);
 
