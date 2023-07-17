@@ -2,6 +2,7 @@
 
 /**
  * exit_func - implementation of the exit built-in command
+ * @argv: pointer to a string
  * Return: exit status
  */
 void exit_func(char *argv[])
