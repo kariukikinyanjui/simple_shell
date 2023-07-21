@@ -37,23 +37,21 @@ int main(int ac, char *av[])
 		for (a = 0; a < num_commands; a++)
 		{
 			parse_func(commands[a], argv);
-			if (strcmp(argv[0], "exit") == 0)
+			if (_strcmp(argv[0], "exit") == 0)
 			{
 				if (argv[1] != NULL)
 				{
 					exit_status = atoi(argv[1]);
 					free(command);
-					free(commands);
 					exit_func(exit_status);
 				}
 				else
 				{
 					free(command);
-					free(commands);
 					exit_func(0);
 				}
 			}
-			else if (strcmp(argv[0], "env") == 0)
+			else if (_strcmp(argv[0], "env") == 0)
 			{
 				env_func(argv);
 			}
@@ -64,6 +62,5 @@ int main(int ac, char *av[])
 		}
 	}
 	free(command);
-	free(commands);
 	return (0);
 }
