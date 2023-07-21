@@ -41,3 +41,56 @@ char *my_strtok(char *str, const char *delim)
 	}
 	return (token);
 }
+/**
+ * _strcmp - a function used to compare two strings
+ * @str1: string pointer 1
+ * @str2: string pointer 2
+ * Return: the difference between the strings
+ */
+int _strcmp(const char *str1, const char *str2)
+{
+	while (*str1 != '\0' || *str2 != '\0')
+	{
+		if (*str1 != *str2)
+		{
+			return (*str1 - *str2);
+		}
+		str1++;
+		str2++;
+	}
+	return (0);
+}
+/**
+ * _getenv - a function usd to retrieve the value of an environment variable
+ * @name: string representing the name of the environment variable that
+ * you want to retrieve
+ * Return: NULL if variable is not found
+ */
+char *_getenv(const char *name)
+{
+	int a;
+	char *delim;
+	char *_var;
+	size_t var_len;
+
+	if (name == NULL || name[0] == '\0')
+	{
+		return (NULL);
+	}
+	for (a = 0; environ[a] != NULL; a++)
+	{
+		_var = environ[a];
+		delim = strchr(_var, '=');
+
+		if (delim == NULL || delim == _var)
+		{
+			continue;
+		}
+		var_len = delim - _var;
+		if (strncmp(_var, name, var_len) == 0)
+		{
+			return (delim + 1);
+		}
+	}
+	return (NULL);
+}
