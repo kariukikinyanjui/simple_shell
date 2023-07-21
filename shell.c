@@ -13,9 +13,11 @@ int main(int ac, char *av[])
 	char *prompt = "(myShell)$ ";
 	char *command = NULL;
 	char *argv[MAX_ARGS];
+	char *commands[MAX_COMMANDS];
 	size_t bufsize = BUFF_SIZE;
 	ssize_t cmdread;
 	int exit_status;
+	int a, num_commands;
 	(void)ac;
 	(void)av;
 
@@ -30,33 +32,38 @@ int main(int ac, char *av[])
 			break;
 		}
 		command[strcspn(command, "\n")] = '\0';
+		num_commands = commands_separator(command, commands);
 
-		parse_func(command, argv);
-
-		if (strcmp(argv[0], "exit") == 0)
+		for (a = 0; a < num_commands; a++)
 		{
-			if (argv[1] != NULL)
+			parse_func(commands[a], argv);
+			if (strcmp(argv[0], "exit") == 0)
 			{
-				exit_status = atoi(argv[1]);
-				free(command);
-				exit_func(exit_status);
+				if (argv[1] != NULL)
+				{
+					exit_status = atoi(argv[1]);
+					free(command);
+					free(commands);
+					exit_func(exit_status);
+				}
+				else
+				{
+					free(command);
+					free(commands);
+					exit_func(0);
+				}
+			}
+			else if (strcmp(argv[0], "env") == 0)
+			{
+				env_func(argv);
 			}
 			else
 			{
-				free(command);
-				exit_func(0);
+				file_path(argv);
 			}
 		}
-		else if (strcmp(argv[0], "env") == 0)
-		{
-			env_func(argv);
-		}
-		else
-		{
-			file_path(argv);
-		}
 	}
-
 	free(command);
+	free(commands);
 	return (0);
 }
