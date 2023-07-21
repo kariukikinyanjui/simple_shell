@@ -18,4 +18,6 @@ void exit_func(int status);
 void env_func(char *argv[]);
 char *my_strtok(char *str, const char *delim);
 int commands_separator(char *input, char *commands[]);
+int _strcmp(const char *str1, const char *str2);
+char *_getenv(const char *name);
 #endif
