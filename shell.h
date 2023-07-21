@@ -2,6 +2,7 @@
 #define SHELL_H
 #define BUFF_SIZE 1024
 #define MAX_ARGS 20
+#define MAX_COMMANDS 20
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,5 +17,5 @@ void file_path(char *argv[]);
 void exit_func(int status);
 void env_func(char *argv[]);
 char *my_strtok(char *str, const char *delim);
-
+int commands_separator(char *input, char *commands[]);
 #endif
