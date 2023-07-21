@@ -13,7 +13,7 @@ void file_path(char *argv[])
 	char full_path[BUFF_SIZE];
 	int status;
 
-	path = getenv("PATH");
+	path = _getenv("PATH");
 	path_copy = strdup(path);
 
 	if (path == NULL)
