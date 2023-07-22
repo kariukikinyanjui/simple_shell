@@ -20,4 +20,5 @@ char *my_strtok(char *str, const char *delim);
 int commands_separator(char *input, char *commands[]);
 int _strcmp(const char *str1, const char *str2);
 char *_getenv(const char *name);
+char *_strcat(char *dest, const char *src);
 #endif
