@@ -27,8 +27,8 @@ void file_path(char *argv[])
 	{
 		strncpy(full_path, dir, BUFF_SIZE - 1);
 		full_path[BUFF_SIZE - 1] = '\0';
-		strcat(full_path, "/");
-		strcat(full_path, argv[0]);
+		_strcat(full_path, "/");
+		_strcat(full_path, argv[0]);
 
 		if (access(full_path, F_OK) == 0)
 		{
