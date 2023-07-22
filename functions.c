@@ -94,3 +94,27 @@ char *_getenv(const char *name)
 	}
 	return (NULL);
 }
+/**
+ * _strcat - a function used to concatenate two null-terminated strings
+ * @src: source string
+ * @dest: destination string
+ * Return: destination string
+ */
+char *_strcat(char *dest, const char *src)
+{
+	char *p = dest;
+
+	while (*p != '\0')
+	{
+		p++;
+	}
+	while (*src != '\0')
+	{
+		*p = *src;
+		p++;
+		src++;
+	}
+	*p = '\0';
+
+	return (dest);
+}
