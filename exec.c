@@ -58,6 +58,6 @@ void file_path(char *argv[])
 
 		dir = strtok(NULL, ":");
 	}
-
+	free(path_copy);
 	printf("Command not found\n");
 }
