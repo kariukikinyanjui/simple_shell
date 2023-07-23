@@ -55,6 +55,14 @@ int main(int ac, char *av[])
 			{
 				env_func(argv);
 			}
+			else if (_strcmp(argv[0], "setenv") == 0)
+			{
+				_setenv(argv);
+			}
+			else if (_strcmp(argv[0], "unsetenv") == 0)
+			{
+				_unsetenv(argv);
+			}
 			else
 			{
 				file_path(argv);

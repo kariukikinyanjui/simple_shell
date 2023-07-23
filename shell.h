@@ -21,4 +21,6 @@ int commands_separator(char *input, char *commands[]);
 int _strcmp(const char *str1, const char *str2);
 char *_getenv(const char *name);
 char *_strcat(char *dest, const char *src);
+void _setenv(char *argv[]);
+void _unsetenv(char *argv[]);
 #endif
