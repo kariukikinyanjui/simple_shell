@@ -17,11 +17,14 @@ void exit_func(int status)
 void env_func(char *argv[])
 {
 	char **env = environ;
+	size_t len;
 	(void)argv;
 
 	while (*env != NULL)
 	{
-		printf("%s\n", *env);
+		len = strlen(*env);
+		write(STDOUT_FILENO, *env, len);
+		write(STDOUT_FILENO, "\n", 1);
 		env++;
 	}
 }
@@ -32,13 +35,17 @@ void env_func(char *argv[])
  */
 void _setenv(char *argv[])
 {
+	const char *succ_msg, *err_msg;
+
 	if (setenv(argv[1], argv[2], 1) == 0)
 	{
-		printf("The environment variable has been set successfully\n");
+		succ_msg = "The environment variable has been set successfully\n";
+		write(STDOUT_FILENO, succ_msg, strlen(succ_msg));
 	}
 	else
 	{
-		perror("Error setting environment variable.");
+		err_msg = "Error setting environment variable.";
+		write(STDERR_FILENO, err_msg, strlen(err_msg));
 	}
 }
 
@@ -48,12 +55,16 @@ void _setenv(char *argv[])
  */
 void _unsetenv(char *argv[])
 {
+	const char *succ_msg, *err_msg;
+
 	if (unsetenv(argv[1]) == 0)
 	{
-		printf("The environment variable's been unset successfully\n");
+		succ_msg = "The environment variable's been unset successfully\n";
+		write(STDOUT_FILENO, succ_msg, strlen(succ_msg));
 	}
 	else
 	{
-		perror("Failed to unset environment variable.");
+		err_msg = "Failed to unset environment variable.";
+		write(STDERR_FILENO, err_msg, strlen(err_msg));
 	}
 }
