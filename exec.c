@@ -18,7 +18,7 @@ void file_path(char *argv[])
 
 	if (path == NULL)
 	{
-		printf("PATH environment variable not found\n");
+		write(STDOUT_FILENO, "PATH environment variable not found\n", 35);
 		return;
 	}
 
@@ -59,5 +59,5 @@ void file_path(char *argv[])
 		dir = strtok(NULL, ":");
 	}
 	free(path_copy);
-	printf("Command not found\n");
+	write(STDOUT_FILENO, "Command not found\n", 18);
 }

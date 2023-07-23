@@ -23,12 +23,12 @@ int main(int ac, char *av[])
 
 	while (1)
 	{
-		printf("%s", prompt);
+		write(STDOUT_FILENO, prompt, strlen(prompt));
 		cmdread = getline(&command, &bufsize, stdin);
 
 		if (cmdread == -1)
 		{
-			printf("\n");
+			write(STDOUT_FILENO, "/n", 1);
 			break;
 		}
 		command[strcspn(command, "\n")] = '\0';
