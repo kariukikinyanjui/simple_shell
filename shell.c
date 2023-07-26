@@ -8,6 +8,7 @@ void display_prompt(const char *prompt)
 {
 	write(STDOUT_FILENO, prompt, strlen(prompt));
 }
+
 /**
  * read_input - reads the input using the getline function
  * @bufsize: function parameter
@@ -27,6 +28,7 @@ char *read_input(size_t *bufsize)
 	command[strcspn(command, "\n")] = '\0';
 	return (command);
 }
+
 /**
  * parse_exec_command - parse and execute input command
  * @command: input command
@@ -72,6 +74,7 @@ void parse_exec_command(char *command)
 		}
 	}
 }
+
 /**
  * main - Entry point
  * @ac: argument count
