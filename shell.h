@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <signal.h>
 
 void display_prompt(const char *prompt);
 extern char **environ;
@@ -29,4 +30,6 @@ void find_exec_command(char *argv[]);
 void file_path(char *argv[]);
 void exec_command_path(char *full_path, char *argv[]);
 void parse_func(char *command, char *argv[]);
+void ignore_ctrl_c(int signum);
+void run_script(FILE *file_stream);
 #endif
