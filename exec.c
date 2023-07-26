@@ -106,7 +106,7 @@ void file_path(char *argv[])
 }
 /**
  * run_script -handles the non-interactive mode of the shell
- * @filename: name of the script file to execute
+ * @file_stream: name of the script file to execute
  */
 void run_script(FILE *file_stream)
 {
