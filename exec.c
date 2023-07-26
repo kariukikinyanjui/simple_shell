@@ -70,20 +70,29 @@ void find_exec_command(char *argv[])
 	}
 	while (dir != NULL)
 	{
+		if (argv[0][0] == '/')
+		{
+			if (access(argv[0], F_OK) == 0)
+			{
+				exec_command_path(argv[0], argv);
+				free(path_copy);
+				return;
+			}
+			break;
+		}
 		get_full_path(dir, argv[0], full_path);
 
 		if (access(full_path, F_OK) == 0)
 		{
 			exec_command_path(full_path, argv);
-			break;
+			free(path_copy);
+			return;
 		}
 		dir = strtok(NULL, ":");
 	}
 	free(path_copy);
 	if (dir == NULL)
-	{
 		write(STDOUT_FILENO, "Command not found\n", 18);
-	}
 }
 
 /**
@@ -94,4 +103,22 @@ void find_exec_command(char *argv[])
 void file_path(char *argv[])
 {
 	find_exec_command(argv);
+}
+/**
+ * run_script -handles the non-interactive mode of the shell
+ * @filename: name of the script file to execute
+ */
+void run_script(FILE *file_stream)
+{
+	char *line = NULL;
+	size_t  bufsize = 0;
+	ssize_t line_len;
+
+	while ((line_len = getline(&line, &bufsize, file_stream)) != -1)
+	{
+		line[strcspn(line, "\n")] = '\0';
+
+		parse_exec_command(line);
+	}
+	free(line);
 }
