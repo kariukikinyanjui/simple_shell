@@ -1,63 +1,95 @@
 #include "shell.h"
 
 /**
- * file_path - A function that gets the PATH environment variable of a command
- * and executes the command
- * @argv: pointer to a character
+ * get_full_path - a fuction that gets the full path
+ * @dir: function parameter 1
+ * @command: function parameter 2
+ * @full_path: function parameter 3
  */
-
-void file_path(char *argv[])
+void get_full_path(char *dir, const char *command, char full_path[])
 {
-	char *path, *path_copy;
-	char *dir;
-	char full_path[BUFF_SIZE];
+	strncpy(full_path, dir, BUFF_SIZE - 1);
+	full_path[BUFF_SIZE - 1] = '\0';
+	_strcat(full_path, "/");
+	_strcat(full_path, command);
+}
+/**
+ * exec_command_path - handles the actual execution of the command
+ * @full_path: function parameter 1
+ * @argv: array pointer to a character
+ * Return: Nothing
+ */
+void exec_command_path(char *full_path, char *argv[])
+{
 	int status;
+	pid_t pid = fork();
 
-	path = _getenv("PATH");
-	path_copy = strdup(path);
+	if (pid < 0)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	else if (pid == 0)
+	{
+		execve(full_path, argv, environ);
+		perror("execve");
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		waitpit(pid, &status, 0);
+		if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
+		{
+			return;
+		}
+	}
+}
+/**
+ * find_exec_command - function is responsible for traversing the PATH
+ * environment variable and finding the full path of the executable
+ * @argv: pointer to a string
+ */
+void find_exec_command(char *argv[])
+{
+	char *path = _getenv("PATH");
+	char *path_copy = strdup(path);
+	char *dir = strtok(path_copy, ":");
+	char full_path[BUFF_SIZE];
 
 	if (path == NULL)
 	{
-		write(STDOUT_FILENO, "PATH environment variable not found\n", 35);
+		write(STDOUT_FILENO, "PATH environment variable not
+				found\n", 35);
 		return;
 	}
-
-	dir = strtok(path_copy, ":");
+	if (path_copy == NULL)
+	{
+		perror("strdup");
+		exit(EXIT_FAILURE);
+	}
 	while (dir != NULL)
 	{
-		strncpy(full_path, dir, BUFF_SIZE - 1);
-		full_path[BUFF_SIZE - 1] = '\0';
-		_strcat(full_path, "/");
-		_strcat(full_path, argv[0]);
+		get_full_path(dir, argv[0], full_path);
 
 		if (access(full_path, F_OK) == 0)
 		{
-			pid_t pid = fork();
-
-			if (pid < 0)
-			{
-				perror("fork");
-				exit(EXIT_FAILURE);
-			}
-			else if (pid == 0)
-			{
-				execve(full_path, argv, environ);
-				perror("execve");
-				exit(EXIT_FAILURE);
-			}
-			else
-			{
-				waitpid(pid, &status, 0);
-				free(path_copy);
-				if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
-				{
-					return;
-				}
-			}
+			exec_command_path(full_path, argv);
+			break;
 		}
-
 		dir = strtok(NULL, ":");
 	}
 	free(path_copy);
-	write(STDOUT_FILENO, "Command not found\n", 18);
+	if (dir == NULL)
+	{
+		write(STDOUT_FILENO, "Command not found\n", 18);
+	}
+}
+/**
+ * file_path -simple wrapper around the core functionality provided
+ * by find_exec_command
+ * @argv: pointer to an array
+ */
+void file_path(char *argv[])
+{
+	find_exec_command(argv);
 }

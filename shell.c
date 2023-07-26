@@ -1,74 +1,102 @@
 #include "shell.h"
 
 /**
+ * display_prompt - displays the prompt
+ * @prompt: pointer to a character
+ */
+void display_prompt(const char *prompt)
+{
+	write(STDOUT_FILENO, prompt, strlen(prompt));
+}
+/**
+ * read_input - reads the input using the getline function
+ * @bufsize: function parameter
+ * Return: input command
+ */
+char *read_input(size_t *bufsize)
+{
+	char *command = NULL;
+	ssize_t cmdread = getline(&command, bufsize, stdin);
+
+	if (cmdread == -1)
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		free(command);
+		return (NULL);
+	}
+	command[strcspn(command, "\n")] = '\0';
+	return (command);
+}
+/**
+ * parse_exec_command - parse and execute input command
+ * @command: input command
+ */
+void parse_exec_command(char *command)
+{
+	char *argv[MAX_ARGS];
+	char *commands[MAX_COMMANDS];
+	int a, exit_status, num_commands;
+
+	num_commands = commands_separator(command, commands);
+
+	for (a = 0; a < num_commands; a++)
+	{
+		parse_func(commands[a], argv);
+		if (_strcmp(argv[0], "exit") == 0)
+		{
+			if (argv[1] != NULL)
+			{
+				exit_status = atoi(argv[1]);
+				exit_func(exit_status);
+			}
+			else
+			{
+				exit_func(0);
+			}
+		}
+		else if (_strcmp(argv[0], "env") == 0)
+		{
+			env_func(argv);
+		}
+		else if (_strcmp(argv[0], "setenv") == 0)
+		{
+			_setenv(argv);
+		}
+		else if (_strcmp(argv[0], "unsetenv") == 0)
+		{
+			_unsetenv(argv);
+		}
+		else
+		{
+			find__exec_command(argv);
+		}
+	}
+}
+/**
  * main - Entry point
  * @ac: argument count
  * @av: argument vector
  * Return: 0
  */
-
-
 int main(int ac, char *av[])
 {
-	char *prompt = "(myShell)$ ";
+	const char *prompt = "(myShell)$ ";
 	char *command = NULL;
-	char *argv[MAX_ARGS];
-	char *commands[MAX_COMMANDS];
 	size_t bufsize = BUFF_SIZE;
-	ssize_t cmdread;
-	int exit_status;
-	int a, num_commands;
 	(void)ac;
 	(void)av;
 
 	while (1)
 	{
-		write(STDOUT_FILENO, prompt, strlen(prompt));
-		cmdread = getline(&command, &bufsize, stdin);
+		display_prompt(prompt);
+		command = read_input(&bufsize);
 
-		if (cmdread == -1)
+		if (command == NULL)
 		{
-			write(STDOUT_FILENO, "/n", 1);
 			break;
 		}
-		command[strcspn(command, "\n")] = '\0';
-		num_commands = commands_separator(command, commands);
-
-		for (a = 0; a < num_commands; a++)
-		{
-			parse_func(commands[a], argv);
-			if (_strcmp(argv[0], "exit") == 0)
-			{
-				if (argv[1] != NULL)
-				{
-					exit_status = atoi(argv[1]);
-					free(command);
-					exit_func(exit_status);
-				}
-				else
-				{
-					free(command);
-					exit_func(0);
-				}
-			}
-			else if (_strcmp(argv[0], "env") == 0)
-			{
-				env_func(argv);
-			}
-			else if (_strcmp(argv[0], "setenv") == 0)
-			{
-				_setenv(argv);
-			}
-			else if (_strcmp(argv[0], "unsetenv") == 0)
-			{
-				_unsetenv(argv);
-			}
-			else
-			{
-				file_path(argv);
-			}
-		}
+		parse_exec_command(command);
+		free(command);
 	}
-	free(command);
 	return (0);
 }
