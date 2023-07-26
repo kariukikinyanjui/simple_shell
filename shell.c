@@ -49,10 +49,12 @@ void parse_exec_command(char *command)
 			if (argv[1] != NULL)
 			{
 				exit_status = atoi(argv[1]);
+				free(command);
 				exit_func(exit_status);
 			}
 			else
 			{
+				free(command);
 				exit_func(0);
 			}
 		}
