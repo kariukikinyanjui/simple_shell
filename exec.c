@@ -92,7 +92,7 @@ void find_exec_command(char *argv[])
 	}
 	free(path_copy);
 	if (dir == NULL)
-		write(STDOUT_FILENO, "Command not found\n", 18);
+		write(STDOUT_FILENO, "No such file or directory\n", 26);
 }
 
 /**
