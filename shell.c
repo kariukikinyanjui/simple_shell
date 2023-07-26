@@ -68,7 +68,7 @@ void parse_exec_command(char *command)
 		}
 		else
 		{
-			find__exec_command(argv);
+			find_exec_command(argv);
 		}
 	}
 }

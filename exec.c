@@ -37,7 +37,7 @@ void exec_command_path(char *full_path, char *argv[])
 	}
 	else
 	{
-		waitpit(pid, &status, 0);
+		waitpid(pid, &status, 0);
 		if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
 		{
 			return;
@@ -58,8 +58,7 @@ void find_exec_command(char *argv[])
 
 	if (path == NULL)
 	{
-		write(STDOUT_FILENO, "PATH environment variable not
-				found\n", 35);
+		write(STDOUT_FILENO, "PATH environment variable notfound\n", 35);
 		return;
 	}
 	if (path_copy == NULL)
