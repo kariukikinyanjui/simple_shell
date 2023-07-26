@@ -13,6 +13,7 @@ void get_full_path(char *dir, const char *command, char full_path[])
 	_strcat(full_path, "/");
 	_strcat(full_path, command);
 }
+
 /**
  * exec_command_path - handles the actual execution of the command
  * @full_path: function parameter 1
@@ -44,6 +45,7 @@ void exec_command_path(char *full_path, char *argv[])
 		}
 	}
 }
+
 /**
  * find_exec_command - function is responsible for traversing the PATH
  * environment variable and finding the full path of the executable
@@ -83,6 +85,7 @@ void find_exec_command(char *argv[])
 		write(STDOUT_FILENO, "Command not found\n", 18);
 	}
 }
+
 /**
  * file_path -simple wrapper around the core functionality provided
  * by find_exec_command
