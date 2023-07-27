@@ -32,4 +32,5 @@ void exec_command_path(char *full_path, char *argv[]);
 void parse_func(char *command, char *argv[]);
 void ignore_ctrl_c(int signum);
 void run_script(FILE *file_stream);
+void execute_commands(char *commands[], int num_commands);
 #endif
