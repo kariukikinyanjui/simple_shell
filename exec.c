@@ -91,8 +91,7 @@ void find_exec_command(char *argv[])
 		dir = strtok(NULL, ":");
 	}
 	free(path_copy);
-	if (dir == NULL)
-		write(STDOUT_FILENO, "No such file or directory\n", 26);
+	write(STDOUT_FILENO, "No such file or directory\n", 26);
 }
 
 /**
@@ -104,6 +103,7 @@ void file_path(char *argv[])
 {
 	find_exec_command(argv);
 }
+
 /**
  * run_script -handles the non-interactive mode of the shell
  * @file_stream: name of the script file to execute
