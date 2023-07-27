@@ -8,15 +8,10 @@
  */
 void get_full_path(char *dir, const char *command, char full_path[])
 {
-	bool slash;
-
 	slash = (dir[strlen(dir) - 1] == '/');
 	strncpy(full_path, dir, BUFF_SIZE - 1);
 	full_path[BUFF_SIZE - 1] = '\0';
-	if (!slash)
-	{
-		_strcat(full_path, "/");
-	}
+	_strcat(full_path, "/");
 	_strcat(full_path, command);
 }
 

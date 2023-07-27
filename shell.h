@@ -11,7 +11,6 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <signal.h>
-#include <stdbool.h>
 
 void display_prompt(const char *prompt);
 extern char **environ;
