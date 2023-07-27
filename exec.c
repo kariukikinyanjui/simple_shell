@@ -7,7 +7,7 @@
  * @full_path: function parameter 3
  */
 void get_full_path(char *dir, const char *command, char full_path[])
-
+{
 	strncpy(full_path, dir, BUFF_SIZE - 1);
 	full_path[BUFF_SIZE - 1] = '\0';
 	_strcat(full_path, "/");
