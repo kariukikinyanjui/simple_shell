@@ -96,6 +96,7 @@ int main(int ac, char *av[])
 	const char *prompt = "(myShell)$ ";
 	char *command = NULL;
 	size_t bufsize = BUFF_SIZE;
+	int interactive = isatty(fileno(stdin));
 
 	signal(SIGINT, ignore_ctrl_c);
 	if (ac > 1)
@@ -116,7 +117,11 @@ int main(int ac, char *av[])
 	{
 		while (1)
 		{
-			display_prompt(prompt);
+			if (interactive)
+			{
+				display_prompt(prompt);
+			}
+
 			command = read_input(&bufsize);
 
 			if (command == NULL)
