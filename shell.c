@@ -99,7 +99,7 @@ int main(int ac, char *av[])
 	int interactive = isatty(fileno(stdin));
 
 	signal(SIGINT, ignore_ctrl_c);
-	if (!interactive)
+	if (ac > 1)
 	{
 		FILE *script_file = fopen(av[1], "r");
 
