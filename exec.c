@@ -8,8 +8,7 @@
  */
 void get_full_path(char *dir, const char *command, char full_path[])
 {
-	strncpy(full_path, dir, BUFF_SIZE - 1);
-	full_path[BUFF_SIZE - 1] = '\0';
+	strcpy(full_path, dir);
 	_strcat(full_path, "/");
 	_strcat(full_path, command);
 }
@@ -73,7 +72,7 @@ void find_exec_command(char *argv[])
 			return;
 		}
 	}
-	if (path == NULL)
+	if (path_copy == NULL || path_copy[0] == '\0')
 	{
 		write(STDOUT_FILENO, "PATH environment variable not found\n", 35);
 		free(path_copy);

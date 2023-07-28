@@ -51,7 +51,7 @@ void parse_exec_command(char *command)
 		if (_strcmp(argv[0], "exit") == 0)
 		{
 			if (argv[1] != NULL)
-			{	
+			{
 				exit_status = atoi(argv[1]);
 				if (exit_status >= 0 && exit_status <= 255)
 				{

@@ -45,6 +45,13 @@ void _setenv(char *argv[])
 {
 	const char *succ_msg, *err_msg;
 
+	if (argv[1] == NULL || argv[2] == NULL)
+	{
+		err_msg = "Usage: setenv VARIABLE VALUE";
+		write(STDERR_FILENO, err_msg, strlen(err_msg));
+		return;
+	}
+
 	if (setenv(argv[1], argv[2], 1) == 0)
 	{
 		succ_msg = "The environment variable has been set successfully\n";
