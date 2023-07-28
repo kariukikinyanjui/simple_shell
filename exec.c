@@ -58,30 +58,31 @@ void find_exec_command(char *argv[])
 	char *dir = strtok(path_copy, ":");
 	char full_path[BUFF_SIZE];
 
+	if ((argv[0][0] == '.' && argv[0][1] == '/') || argv[0][0] == '/')
+	{
+		if (access(argv[0], F_OK) == 0)
+		{
+			exec_command_path(argv[0], argv);
+			return;
+		}
+		else
+		{
+			write(STDOUT_FILENO, "No such file or directory\n", 26);
+			return;
+		}
+	}
 	if (path == NULL)
 	{
-		write(STDOUT_FILENO, "PATH environment variable notfound\n", 35);
+		write(STDOUT_FILENO, "PATH environment variable not found\n", 35);
 		return;
 	}
 	if (path_copy == NULL)
-	{
-		perror("strdup");
+	{	perror("strdup");
 		exit(EXIT_FAILURE);
 	}
 	while (dir != NULL)
 	{
-		if (argv[0][0] == '/')
-		{
-			if (access(argv[0], F_OK) == 0)
-			{
-				exec_command_path(argv[0], argv);
-				free(path_copy);
-				return;
-			}
-			break;
-		}
 		get_full_path(dir, argv[0], full_path);
-
 		if (access(full_path, F_OK) == 0)
 		{
 			exec_command_path(full_path, argv);
@@ -113,6 +114,7 @@ void run_script(FILE *file_stream)
 	char *line = NULL;
 	size_t  bufsize = 0;
 	ssize_t line_len;
+	int commands_exec = 0;
 
 	while ((line_len = getline(&line, &bufsize, file_stream)) != -1)
 	{
@@ -120,7 +122,7 @@ void run_script(FILE *file_stream)
 
 		parse_exec_command(line);
 
-		write(STDOUT_FILENO, "\n", 1);
+		commands_exec++;
 	}
 	free(line);
 }
