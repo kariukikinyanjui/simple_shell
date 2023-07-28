@@ -130,6 +130,7 @@ int main(int ac, char *av[])
 
 			if (command == NULL)
 			{
+				free(command);
 				break;
 			}
 			parse_exec_command(command);

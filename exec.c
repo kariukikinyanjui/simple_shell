@@ -63,17 +63,20 @@ void find_exec_command(char *argv[])
 		if (access(argv[0], F_OK) == 0)
 		{
 			exec_command_path(argv[0], argv);
+			free(path_copy);
 			return;
 		}
 		else
 		{
 			write(STDOUT_FILENO, "No such file or directory\n", 26);
+			free(path_copy);
 			return;
 		}
 	}
 	if (path == NULL)
 	{
 		write(STDOUT_FILENO, "PATH environment variable not found\n", 35);
+		free(path_copy);
 		return;
 	}
 	if (path_copy == NULL)
