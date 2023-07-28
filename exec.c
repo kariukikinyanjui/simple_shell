@@ -80,15 +80,19 @@ void find_exec_command(char *argv[])
 		return;
 	}
 	if (path_copy == NULL)
+	{
 		perror("strdup");
 		exit(EXIT_FAILURE);
+	}
 	while (dir != NULL)
 	{
 		get_full_path(dir, argv[0], full_path);
 		if (access(full_path, F_OK) == 0)
+		{
 			exec_command_path(full_path, argv);
 			free(path_copy);
 			return;
+		}
 		dir = strtok(NULL, ":");
 	}
 	free(path_copy);

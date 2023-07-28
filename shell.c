@@ -108,8 +108,10 @@ int main(int ac, char *av[])
 			run_script(stdin);
 		}
 		else
+		{
 			run_script(script_file);
 			fclose(script_file);
+		}
 	}
 	else
 	{
