@@ -30,61 +30,6 @@ char *read_input(size_t *bufsize)
 }
 
 /**
- * parse_exec_command - parse and execute input command
- * @command: input command
- */
-void parse_exec_command(char *command)
-{
-	char *argv[MAX_ARGS];
-	char *commands[MAX_COMMANDS];
-	int a, exit_status, num_commands;
-
-	num_commands = commands_separator(command, commands);
-
-	for (a = 0; a < num_commands; a++)
-	{
-		if (commands[a][0] == '\0')
-		{
-			continue;
-		}
-		parse_func(commands[a], argv);
-		if (_strcmp(argv[0], "exit") == 0)
-		{
-			if (argv[1] != NULL)
-			{
-				exit_status = atoi(argv[1]);
-				if (exit_status >= 0 && exit_status <= 255)
-				{
-					free(command);
-					exit_func(exit_status);
-				}
-				else
-				{
-					fprintf(stderr, "./hsh: exit: Illegal number: %d\n", exit_status);
-					continue;
-				}
-			}
-			else
-			{
-				free(command);
-				exit_func(0);
-			}
-		}
-		else if (_strcmp(argv[0], "env") == 0)
-		{
-			env_func(argv);
-		}
-		else if (_strcmp(argv[0], "setenv") == 0)
-		{
-			_setenv(argv);
-		}
-		else if (_strcmp(argv[0], "unsetenv") == 0)
-			_unsetenv(argv);
-		else
-			find_exec_command(argv);
-	}
-}
-/**
  * ignore_ctrl_c - ingore Ctrl + C
  * @signum: function parameter
  */
