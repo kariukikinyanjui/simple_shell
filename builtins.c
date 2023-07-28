@@ -44,7 +44,6 @@ void env_func(char *argv[])
 void _setenv(char *argv[])
 {
 	const char *succ_msg, *err_msg;
-	char *env_var;
 
 	if (argv[1] == NULL || argv[2] == NULL)
 	{
@@ -52,17 +51,8 @@ void _setenv(char *argv[])
 		write(STDERR_FILENO, err_msg, strlen(err_msg));
 		return;
 	}
-	env_var = malloc(strlen(argv[1]) + strlen(argv[2]) + 2);
-	if (env_var == NULL)
-	{
-		perror("malloc");
-		exit(EXIT_FAILURE);
-	}
-	strcpy(env_var, argv[1]);
-	strcat(env_var, "=");
-	strcat(env_var, argv[2]);
 
-	if (putenv(env_var) == 0)
+	if (setenv(argv[1], argv[2], 1) == 0)
 	{
 		succ_msg = "The environment variable has been set successfully\n";
 		write(STDOUT_FILENO, succ_msg, strlen(succ_msg));
@@ -72,7 +62,6 @@ void _setenv(char *argv[])
 		err_msg = "Error setting environment variable.";
 		write(STDERR_FILENO, err_msg, strlen(err_msg));
 	}
-	free(env_var);
 }
 
 /**
