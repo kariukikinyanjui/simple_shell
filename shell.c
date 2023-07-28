@@ -43,6 +43,10 @@ void parse_exec_command(char *command)
 
 	for (a = 0; a < num_commands; a++)
 	{
+		if (commands[a][0] == '\0')
+		{
+			continue;
+		}
 		parse_func(commands[a], argv);
 		if (_strcmp(argv[0], "exit") == 0)
 		{
