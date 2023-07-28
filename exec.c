@@ -119,6 +119,8 @@ void run_script(FILE *file_stream)
 		line[strcspn(line, "\n")] = '\0';
 
 		parse_exec_command(line);
+
+		write(STDOUT_FILENO, "\n", 1);
 	}
 	free(line);
 }
