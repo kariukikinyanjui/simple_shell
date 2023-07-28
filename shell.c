@@ -51,10 +51,18 @@ void parse_exec_command(char *command)
 		if (_strcmp(argv[0], "exit") == 0)
 		{
 			if (argv[1] != NULL)
-			{
+			{	
 				exit_status = atoi(argv[1]);
-				free(command);
-				exit_func(exit_status);
+				if (exit_status >= 0 && exit_status <= 255)
+				{
+					free(command);
+					exit_func(exit_status);
+				}
+				else
+				{
+					fprintf(stderr, "./hsh: exit: Illegal number: %d\n", exit_status);
+					continue;
+				}
 			}
 			else
 			{

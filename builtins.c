@@ -6,7 +6,15 @@
  */
 void exit_func(int status)
 {
-	exit(status);
+	if (status >= 0 && status <= 255)
+	{
+		exit(status);
+	}
+	else
+	{
+		fprintf(stderr, "./hsh: exit: Illegal number: %d\n", status);
+		exit(2);
+	}
 }
 
 /**
