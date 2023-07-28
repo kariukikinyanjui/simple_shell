@@ -34,7 +34,7 @@ void exec_command_path(char *full_path, char *argv[])
 	{
 		execve(full_path, argv, environ);
 		perror("execve");
-		exit(EXIT_FAILURE);
+		exit(2);
 	}
 	else
 	{
