@@ -27,13 +27,13 @@ void exec_command_path(char *full_path, char *argv[])
 
 	if (pid < 0)
 	{
-		perror("fork");
+		fprintf(stderr, "%s: Error creating child process\n", argv[0]);
 		exit(EXIT_FAILURE);
 	}
 	else if (pid == 0)
 	{
 		execve(full_path, argv, environ);
-		perror("execve");
+		fprintf(stderr, "%s: %d: %s: not found\n", argv[0], errno, argv[0]);
 		exit(EXIT_FAILURE);
 	}
 	else
@@ -60,12 +60,13 @@ void find_exec_command(char *argv[])
 
 	if (path == NULL)
 	{
-		write(STDOUT_FILENO, "PATH environment variable notfound\n", 35);
+		fprintf(stderr, "%s: PATH environment variable notfound\n", argv[0]);
+		free(path_copy);
 		return;
 	}
 	if (path_copy == NULL)
 	{
-		perror("strdup");
+		fprintf(stderr, "%s: strdup failed\n", argv[0]);
 		exit(EXIT_FAILURE);
 	}
 	while (dir != NULL)

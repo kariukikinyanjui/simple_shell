@@ -105,7 +105,8 @@ int main(int ac, char *av[])
 
 		if (script_file == NULL)
 		{
-			run_script(stdin);
+			fprintf(stderr, "%s: Can't open %s\n", av[0], av[1]);
+			exit(EXIT_FAILURE);
 		}
 		else
 		{
@@ -125,9 +126,8 @@ int main(int ac, char *av[])
 			command = read_input(&bufsize);
 
 			if (command == NULL)
-			{
 				break;
-			}
+
 			parse_exec_command(command);
 			free(command);
 		}
