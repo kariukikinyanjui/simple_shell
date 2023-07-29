@@ -6,8 +6,9 @@
  * @command: pointer to the command string to be parsed
  * @argv: an array of character pointers where the parsed
  * argument will be stored
+ * Return: number of arguments in argv
  */
-void parse_func(char *command, char *argv[])
+int parse_func(char *command, char *argv[])
 {
 	char *token = my_strtok(command, " \t\n");
 	int argc = 0;
@@ -19,4 +20,5 @@ void parse_func(char *command, char *argv[])
 		token = my_strtok(NULL, " \t\n");
 	}
 	argv[argc] = NULL;
+	return (argc);
 }
