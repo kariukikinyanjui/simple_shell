@@ -16,7 +16,7 @@
 void display_prompt(const char *prompt);
 extern char **environ;
 void exit_func(int status);
-void env_func();
+void env_func(void);
 char *my_strtok(char *str, const char *delim);
 int commands_separator(char *input, char *commands[]);
 int _strcmp(const char *str1, const char *str2);

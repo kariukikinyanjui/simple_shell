@@ -22,7 +22,7 @@ void exit_func(int status)
  * @argv: array of character pointers representing the arguments passed
  * to the env command
  */
-void env_func()
+void env_func(void)
 {
 	char **env = environ;
 	size_t len;
