@@ -39,11 +39,11 @@ void parse_exec_command(char *command)
 	char *commands[MAX_COMMANDS];
 	int a, exit_status, num_commands;
 
+	if (command[0] == '#')
+		return;
 	num_commands = commands_separator(command, commands);
-
 	for (a = 0; a < num_commands; a++)
-	{
-		parse_func(commands[a], argv);
+	{	parse_func(commands[a], argv);
 		if (_strcmp(argv[0], "exit") == 0)
 		{
 			if (argv[1] != NULL)
