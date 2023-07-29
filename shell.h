@@ -16,7 +16,7 @@
 void display_prompt(const char *prompt);
 extern char **environ;
 void exit_func(int status);
-void env_func(char *argv[]);
+void env_func();
 char *my_strtok(char *str, const char *delim);
 int commands_separator(char *input, char *commands[]);
 int _strcmp(const char *str1, const char *str2);
@@ -34,4 +34,5 @@ void parse_func(char *command, char *argv[]);
 void ignore_ctrl_c(int signum);
 void run_script(FILE *file_stream);
 void execute_commands(char *commands[], int num_commands);
+char *_getline(void);
 #endif

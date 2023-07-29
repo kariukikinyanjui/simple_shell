@@ -60,7 +60,7 @@ void parse_exec_command(char *command)
 		}
 		else if (_strcmp(argv[0], "env") == 0)
 		{
-			env_func(argv);
+			env_func();
 		}
 		else if (_strcmp(argv[0], "setenv") == 0)
 		{

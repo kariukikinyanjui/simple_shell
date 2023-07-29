@@ -54,21 +54,22 @@ void exec_command_path(char *full_path, char *argv[])
 void find_exec_command(char *argv[])
 {
 	char *path = _getenv("PATH");
-	char *path_copy = strdup(path);
-	char *dir = strtok(path_copy, ":");
+	char *path_copy = NULL;
+	char *dir = NULL;
 	char full_path[BUFF_SIZE];
 
 	if (path == NULL)
 	{
 		fprintf(stderr, "%s: PATH environment variable notfound\n", argv[0]);
-		free(path_copy);
 		return;
 	}
+	path_copy = strdup(path);
 	if (path_copy == NULL)
 	{
 		fprintf(stderr, "%s: strdup failed\n", argv[0]);
 		exit(EXIT_FAILURE);
 	}
+	dir = strtok(path_copy, ":");
 	while (dir != NULL)
 	{
 		if (argv[0][0] == '/')
