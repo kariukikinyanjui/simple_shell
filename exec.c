@@ -60,8 +60,8 @@ void find_exec_command(char *argv[])
 
 	if (path == NULL)
 	{
-		fprintf(stderr, "%s: PATH environment variable notfound\n", argv[0]);
-		return;
+		fprintf(stderr, "%s: PATH environment variable not found\n", argv[0]);
+		exit(2);
 	}
 	path_copy = strdup(path);
 	if (path_copy == NULL)
@@ -78,7 +78,12 @@ void find_exec_command(char *argv[])
 			{
 				exec_command_path(argv[0], argv);
 				free(path_copy);
-				return;
+				exit(0);
+			}
+			else
+			{
+				fprintf(stderr, "%s: %d: %s: not found\n", argv[0], errno, argv[0]);
+				exit(2);
 			}
 			break;
 		}
@@ -87,12 +92,13 @@ void find_exec_command(char *argv[])
 		if (access(full_path, F_OK) == 0)
 		{	exec_command_path(full_path, argv);
 			free(path_copy);
-			return;
+			exit(0);
 		}
 		dir = my_strtok(NULL, ":");
 	}
 	free(path_copy);
-	write(STDOUT_FILENO, "No such file or directory\n", 26);
+	fprintf(stderr, "%s: %d: %s: not found\n", argv[0], errno, argv[0]);
+	exit(2);
 }
 
 /**
@@ -117,7 +123,7 @@ void run_script(FILE *file_stream)
 
 	while ((line_len = getline(&line, &bufsize, file_stream)) != -1)
 	{
-		line[strcspn(line, "\n")] = '\0';
+		line[line_len - 1] = '\0';
 
 		parse_exec_command(line);
 	}

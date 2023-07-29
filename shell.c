@@ -33,7 +33,7 @@ char *read_input(size_t *bufsize)
  * parse_exec_command - parse and execute input command
  * @command: input command
  */
-void parse_exec_command(char *command)
+int parse_exec_command(char *command)
 {
 	char *argv[MAX_ARGS], *commands[MAX_COMMANDS];
 	int a, exit_status, num_commands, argc;
@@ -76,6 +76,7 @@ void parse_exec_command(char *command)
 			find_exec_command(argv);
 		}
 	}
+	return (exit_status);
 }
 /**
  * ignore_ctrl_c - ingore Ctrl + C
