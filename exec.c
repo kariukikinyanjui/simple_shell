@@ -69,7 +69,7 @@ void find_exec_command(char *argv[])
 		fprintf(stderr, "%s: strdup failed\n", argv[0]);
 		exit(EXIT_FAILURE);
 	}
-	dir = strtok(path_copy, ":");
+	dir = my_strtok(path_copy, ":");
 	while (dir != NULL)
 	{
 		if (argv[0][0] == '/')
@@ -89,7 +89,7 @@ void find_exec_command(char *argv[])
 			free(path_copy);
 			return;
 		}
-		dir = strtok(NULL, ":");
+		dir = my_strtok(NULL, ":");
 	}
 	free(path_copy);
 	write(STDOUT_FILENO, "No such file or directory\n", 26);
