@@ -15,6 +15,9 @@ int parse_func(char *command, char *argv[])
 
 	while (token != NULL && argc < MAX_ARGS - 1)
 	{
+		if (token[0] == '#')
+			break;
+
 		argv[argc] = token;
 		argc++;
 		token = my_strtok(NULL, " \t\n");

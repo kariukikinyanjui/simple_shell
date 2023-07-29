@@ -41,7 +41,7 @@ void parse_exec_command(char *command)
 	num_commands = commands_separator(command, commands);
 	for (a = 0; a < num_commands; a++)
 	{	argc = parse_func(commands[a], argv);
-		if (argc <= 0 || argv[0][0] == '#')
+		if (argc <= 0)
 		{
 			continue;
 		}
