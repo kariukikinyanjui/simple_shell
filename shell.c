@@ -35,15 +35,16 @@ char *read_input(size_t *bufsize)
  */
 void parse_exec_command(char *command)
 {
-	char *argv[MAX_ARGS];
-	char *commands[MAX_COMMANDS];
+	char *argv[MAX_ARGS], *commands[MAX_COMMANDS];
 	int a, exit_status, num_commands, argc;
 
-	if (command[0] == '#')
-		return;
 	num_commands = commands_separator(command, commands);
 	for (a = 0; a < num_commands; a++)
 	{	argc = parse_func(commands[a], argv);
+		if (argc <= 0 || argv[0][0] == '#')
+		{
+			continue;
+		}
 		if (_strcmp(argv[0], "exit") == 0)
 		{
 			if (argc >= 2)
