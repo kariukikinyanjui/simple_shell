@@ -25,7 +25,7 @@ char *_strcat(char *dest, const char *src);
 void _setenv(char *argv[]);
 void _unsetenv(char *argv[]);
 char *read_input(size_t *bufsize);
-void parse_exec_command(char *command);
+int parse_exec_command(char *command);
 void get_full_path(char *dir, const char *command, char full_path[]);
 void find_exec_command(char *argv[]);
 void file_path(char *argv[]);
