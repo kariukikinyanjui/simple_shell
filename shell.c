@@ -32,7 +32,6 @@ char *read_input(size_t *bufsize)
 /**
  * parse_exec_command - parse and execute input command
  * @command: input command
- * @argv: array pointer
  */
 void parse_exec_command(char *command)
 {

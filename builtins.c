@@ -19,8 +19,6 @@ void exit_func(int status)
 
 /**
  * env_func - a function that implements the env built-in command
- * @argv: array of character pointers representing the arguments passed
- * to the env command
  */
 void env_func(void)
 {

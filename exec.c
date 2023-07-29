@@ -85,8 +85,7 @@ void find_exec_command(char *argv[])
 		get_full_path(dir, argv[0], full_path);
 
 		if (access(full_path, F_OK) == 0)
-		{
-			exec_command_path(full_path, argv);
+		{	exec_command_path(full_path, argv);
 			free(path_copy);
 			return;
 		}
